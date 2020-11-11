@@ -9,7 +9,7 @@ public class ParserTest {
     @Test
     public void test() {
         Assert.assertEquals(new double[0][], new Parser("").parse());
-        Assert.assertEquals(new double[][]{{0.2d, 1d},{1.7d, 0d}}, new Parser("0.2 1, 1.7 0").parse());
+        Assert.assertEquals(new double[][]{{0.2d, 1d},{1.7d, 0d}}, new Parser("0.2 1, 1.7 ö0").parse());
     }
 
     @Test(expected = IllegalStateException.class)

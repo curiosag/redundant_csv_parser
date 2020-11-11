@@ -46,7 +46,7 @@ public class Scanner {
                 }
                 if (isNumeral(c)) {
                     state = STATE.NUMBER;
-                    appendNumeral(c);
+                    appendToNumerals(c);
                     continue;
                 }
                 return unexpectedCharError();
@@ -54,7 +54,7 @@ public class Scanner {
 
             if (state == STATE.NUMBER) {
                 if (isNumeral(c)) {
-                    appendNumeral(c);
+                    appendToNumerals(c);
                     continue;
                 }
                 if (c == ' ') {
@@ -80,7 +80,7 @@ public class Scanner {
                 }
                 if (isNumeral(c)) {
                     state = STATE.NUMBER;
-                    appendNumeral(c);
+                    appendToNumerals(c);
                     return ROW_SEPARATOR;
                 }
                 return unexpectedCharError();
@@ -94,13 +94,13 @@ public class Scanner {
 
     private Symbol eofError() {
         state = STATE.ERROR;
-        error =  new Symbol(SymType.ERROR, String.format("end of file reached after character %s at position %d ", input[idx - 1], idx - 1).toCharArray());
+        error =  new Symbol(SymType.ERROR, String.format("end of file reached after character '%s' at position %d ", input[idx - 1], idx - 1).toCharArray());
         return error;
     }
 
     private Symbol unexpectedCharError() {
         state = STATE.ERROR;
-        error = new Symbol(SymType.ERROR, String.format("unexpected character %s at position %d ", input[idx - 1], idx - 1).toCharArray());
+        error = new Symbol(SymType.ERROR, String.format("unexpected character '%s' at position %d ", input[idx - 1], idx - 1).toCharArray());
         return error;
     }
 
@@ -114,7 +114,7 @@ public class Scanner {
         return idx < input.length ? input[idx++] : NUL;
     }
 
-    private void appendNumeral(char c) {
+    private void appendToNumerals(char c) {
         char[] augmented = new char[numeralsRead.length + 1];
         augmented[augmented.length - 1] = c;
         if (numeralsRead.length > 0) {
